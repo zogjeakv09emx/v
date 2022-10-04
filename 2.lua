@@ -18,7 +18,7 @@ local function GetURL(scripturl)
 		return res
 	end
 end
-local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end
+local getasset = function(location) return "rbxasset://"..location end
 local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
 local requestfunc = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or request or function(tab)
 	if tab.Method == "GET" then
@@ -92,7 +92,7 @@ end
 if isfolder("vape/assets") == false then
 	makefolder("vape/assets")
 end
-
+local _getasset = function(location) return "rbxasset://"..location end
 local GuiLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/zogjeakv09emx/v/main/1.lua"))()
 local translations = {}--loadstring(GetURL("translations/"..GuiLibrary["Language"]..".vapetranslation"))()
 local translatedlogo = false--pcall(function() return GetURL("translations/"..GuiLibrary["Language"].."/VapeLogo1.png") end)
@@ -151,7 +151,7 @@ local function getcustomassetfunc(path)
 		})
 		writefile(path, req.Body)
 	end
-	return getasset(path) 
+	return _getasset(path) 
 end
 
 shared.GuiLibrary = GuiLibrary
